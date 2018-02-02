@@ -3,7 +3,7 @@ layout: post
 title: "practise markdown"
 ---
 ## Letme show you my **facy** C++ source code
-[我的Github中C++代码仓库](https://github.com/xdyangwei/learn-c-)
+[是男人就坚持五秒](https://github.com/xdyangwei/learn-c-)
 ### Some python code example and highlight
 
 ``` python
