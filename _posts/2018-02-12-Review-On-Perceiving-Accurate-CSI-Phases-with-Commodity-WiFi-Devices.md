@@ -13,7 +13,7 @@ However,beacause of the hardware imperfection,CSI phase  measurements includes v
 
 CFO which is caused by the unsynchronized central frequencies of a transmission pair leads to a time-varying CSI phase offset across subcarriers.The sampling frequencies of the transmitter and the receiver exhibit an offset(SFO) due to non-synchronized clocks, which can cause the received signal after ADC a time shift with respect to the transmitted signal.Then the time shift causes phase rotation errors.Packet detection delay(PDP) stems from energy detection or correlation detection which occurs in digital processing after down conversion and ADC sampling.Packet detection introduces another time shift with respect to the transmitted signal , which leads to packet-varying phase rotation error.The phase-locked loop (PLL) is responsible for generating the center frequency for the transmitter and the receiver, starting at random initial phase. As a result, the CSI phase measurement at the receiver is corrupted by an additional phase offset.
 
-From the above known error sources, the measured CSI phases are mainly distorted with various phase ration errors and/or phase offset errors.For a transmission pair, the phase measurement $\phi$(i, k) for sub-carrier k in band i can be expressed as ![](csi.png)
+From the above known error sources, the measured CSI phases are mainly distorted with various phase ration errors and/or phase offset errors.For a transmission pair, the phase measurement $$\phi$$(i, k) for sub-carrier k in band i can be expressed as ![](csi.png)
 
 
 
