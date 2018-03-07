@@ -39,12 +39,18 @@ where k ranges from -28 to 28 ( index 0 is reserved for carrier frequency) in IE
 
 In order to verify the conclusion 'phase errors are linear with sub-carrier indexes', Zhuo conduct conduct an experiment in a typical indoor environment with the length and width of the room being 12 meters and 10 meters with Atheros AR9380 Nics. They arrange the transmitter and the receiver in strong line-of-sight (LOS) condition with distance of 0.5 meter, and make the transmitter to transmit with its first antenna, denoted as Nc1, with a fixed transmitting power of 5dBm and the receiver to receive with all of its three antennas denoted as Nr1, Nr2 and Nr3 respectively.    
 
-<center>![有帮助的截图]({{ site.url }}/pictures/1.png)</center>    
+<div style="align: center">![有帮助的截图]({{ site.url }}/pictures/1.png)</div>    
 
-​<center>Fig.2</center>
+<center>Fig.2</center>
 
 Figure 2 illustrates three groups of unwrapped CSI phase measurements for three consecutive packets, with each group containing CSI phases for 1 by 3 transmission pairs.According to (2), the ideal phases
 on different sub-carriers should be almost linear with the sub-carrier indexes. **They observe, however, obvious non-linear distortions in all unwrapped phase measurements.**They repeat such experiment in an indoor gymnasium with length of 50 meter and width of 30 meter, and get similar results.
+
+<div style="align: center">![有帮助的截图]({{ site.url }}/pictures/11.png)</div>    
+
+<center>Fig.3</center>
+
+
 
 
 
