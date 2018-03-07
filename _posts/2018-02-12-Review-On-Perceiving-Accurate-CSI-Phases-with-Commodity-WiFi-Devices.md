@@ -9,13 +9,31 @@ After reading the paper 'Perceiving Accurate CSI Phases with Commodity WiFi Devi
 
 The Channel State Information (**CSI**) describes how a signal propagates from the transmitter to the receiver and represents the combined effect of, for example, scattering, fading, and power decay with distance.CSI has been recently used for various motion- or location-based applications.As a result, accurate CSI measurements are of great significance to tremendous applications.
 
-However,beacause of the hardware imperfection,CSI phase  measurements includes various errors besides true CSI phases,for example, Carrier Frequency Offset (CFO),Sampling frequency offset (SFO),Packet detection delay (PDD) and PLL Phase Offset (PPO).
+However,because of the hardware imperfection,CSI phase measurements includes various errors besides true CSI phases,for example, Carrier Frequency Offset (CFO),Sampling frequency offset (SFO),Packet detection delay (PDD) and PLL Phase Offset (PPO).In this paper,the authors not only remove these errors mentioned above,but also identify the unknown non-negligible **non-linear** CSI phase errors and then remove them from CSI measurements.After that,we can get **accurate** CSI measurements.
 
-CFO which is caused by the unsynchronized central frequencies of a transmission pair leads to a time-varying CSI phase offset across subcarriers.The sampling frequencies of the transmitter and the receiver exhibit an offset(SFO) due to non-synchronized clocks, which can cause the received signal after ADC a time shift with respect to the transmitted signal.Then the time shift causes phase rotation errors.Packet detection delay(PDP) stems from energy detection or correlation detection which occurs in digital processing after down conversion and ADC sampling.Packet detection introduces another time shift with respect to the transmitted signal , which leads to packet-varying phase rotation error.The phase-locked loop (PLL) is responsible for generating the center frequency for the transmitter and the receiver, starting at random initial phase. As a result, the CSI phase measurement at the receiver is corrupted by an additional phase offset.
+## The Known Errors
 
-From the above known error sources, the measured CSI phases are mainly distorted with various phase ration errors and/or phase offset errors.For a transmission pair, the phase measurement $$\phi$$(i, k) for sub-carrier k in band i can be expressed as 
+As we said above,because of the hardware imperfection,CSI phase measurements includes various errors besides true CSI phases.Fig.1 illustrates signal processing in 802.11 n.We can analyze the source which causes the errors through Fig.1.    
 
-![有帮助的截图]({{ site.url }}/pictures/csi.png)
+![]({{ site.url }}/pictures/hardware.png)  
+
+**CFO** :  Carrier Frequency Offset (CFO) which is caused by the unsynchronized central frequencies of a transmission pair leads to a time-varying CSI phase offset across subcarriers.    
+
+**SFO** : The sampling frequencies of the transmitter and the receiver exhibit an offset(SFO) due to non-synchronized clocks, which can cause the received signal after ADC a time shift with respect to the transmitted signal.Then the time shift causes phase rotation errors.    
+
+**PDP** : Packet detection delay(PDP) stems from energy detection or correlation detection which occurs in digital processing after down conversion and ADC sampling.Packet detection introduces another time shift with respect to the transmitted signal , which leads to packet-varying phase rotation error.     
+
+**PLL** : The phase-locked loop (PLL) is responsible for generating the center frequency for the transmitter and the receiver, starting at random initial phase. As a result, the CSI phase measurement at the receiver is corrupted by an additional phase offset.
+
+From the above known error sources, the measured CSI phases are mainly distorted with various phase ration errors and/or phase offset errors.For a transmission pair, the phase measurement $$\phi$$(i, k) for sub-carrier k in band i can be expressed as     
+
+![有帮助的截图]({{ site.url }}/pictures/csi.png)    
+
+where k ranges from -28 to 28 ( index 0 is reserved for carrier frequency) in IEEE 802.11n for 20MHz band width, $$\theta$$ ( i, k) denotes the true phase, $$\delta_i$$ is the timing offset at the receiver, including time shift due to PDD and SFO, *f*$$_s$$ is the sub-carrier spacing between two adjacent sub-carriers (i.e. 312.5KHz), $$\beta_i$$ is the total phase offset, and Z is the additive white Gauss measurement noise. **Note that, except for Z, other reported phase errors are linear with sub-carrier indexes.**
+
+## Experiments
+
+
 
 
 
