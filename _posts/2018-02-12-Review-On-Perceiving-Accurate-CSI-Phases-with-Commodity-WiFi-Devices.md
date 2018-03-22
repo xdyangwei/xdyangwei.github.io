@@ -68,7 +68,7 @@ Although they demonstrate that the environment is quite stable,maybe these non-l
 
 The default assumption that only notable linear phase error exists cannot hold and an unrevealed nonlinear phase error exists, which cannot be mitigated through existing methods. To make matter worse, obviously this nonlinear error is orders-of-magnitude higher than the ground truth phase and thus non-negligible.
 
-We augment the CSI phase error model as       
+They augment the CSI phase error model as       
 
 ![]({{ site.url }}/pictures/csi2.png)  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (2)       
 
@@ -81,14 +81,14 @@ where $$\varphi_i,_k$$ denotes the non-linear error as a function of the sub-car
 ![有帮助的截图]({{ site.url }}/pictures/3.png)  
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Fig.5(a) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Fig.5(b)
 
-In specific, we use a RF cable of 30cm and an attenuator of 50dB to connect the first radio chains of both the transmitter and the receiver. The transmitter sends 1,000 packets within three seconds each time with a fixed transmission power of 15dBm in a 20MHz band with a central frequency of 2,412MHz. We random select 100 CSI measurements, remove the mean from each CSI phase measurement, and plot the unwrapped CSI phases and the phase differences for any two consecutive phase measures in Figure 5(a) and (b), respectively.
+In specific, they use a RF cable of 30cm and an attenuator of 50dB to connect the first radio chains of both the transmitter and the receiver. The transmitter sends 1,000 packets within three seconds each time with a fixed transmission power of 15dBm in a 20MHz band with a central frequency of 2,412MHz. They random select 100 CSI measurements, remove the mean from each CSI phase measurement, and plot the unwrapped CSI phases and the phase differences for any two consecutive phase measures in Figure 5(a) and (b), respectively.
 
-From Figure 5(a) and (b),we get two observations:
+From Figure 5(a) and (b),they get two observations:
 1. the envelopes of unwrapped phases are not linear but symmetrical and analogous to some form of trigonometric function
 2. the phase differences of consecutive packets are linear with sub-carrier index
 
 A direct conversion receiver uses two quadrature sinusoidal signals to perform the quadrature
-down conversion. This process requires shifting the local oscillator (LO) signal by 90 degrees to produce a quadrature sinusoidal component. When mismatches exist between the gain and phase of the two sinusoidal signals and/or along the two branches of down-conversion mixers, amplifiers, and lowpass filters, the quadrature baseband signals will be corrupted. Once I/Q imbalance exists, after sampling and FFT, the NIC would estimate and report an anamorphic CSI.Thus,when there is only one path between a transmission pair, we assume the averaged phase measurement  of subcarrier k in band i as:
+down conversion. This process requires shifting the local oscillator (LO) signal by 90 degrees to produce a quadrature sinusoidal component. When mismatches exist between the gain and phase of the two sinusoidal signals and/or along the two branches of down-conversion mixers, amplifiers, and lowpass filters, the quadrature baseband signals will be corrupted. Once I/Q imbalance exists, after sampling and FFT, the NIC would estimate and report an anamorphic CSI.Thus,when there is only one path between a transmission pair, they assume the averaged phase measurement  of subcarrier k in band i as:
 
 ![]({{ site.url }}/pictures/csi3.png)  (3) 
 
@@ -96,7 +96,7 @@ where $$\epsilon_i,_A$$ and $$\epsilon_i,_\theta$$ denote the gain mismatch and 
 
 ### Least-square Regression Analysis
 
-To verify the validity of (3), we then apply the least-square regression analysis to the average of the 1,000 CSIs measured via a short RF cable as described in above subsection. The significance of the regression is measured by the coefficient of determination $$r^2$$, defined as 
+To verify the validity of (3), they then apply the least-square regression analysis to the average of the 1,000 CSIs measured via a short RF cable as described in above subsection. The significance of the regression is measured by the coefficient of determination $$r^2$$, defined as 
 
 ![]({{ site.url }}/pictures/r.png) 
 
@@ -108,26 +108,26 @@ where $$y_i$$ is the averaged CSI phase with mean $$\over y$$ and $$f_i$$ is the
 
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fig.6
 
-As shown in Figure 6, the averaged CSI phase measurements are very well approximated ($$r^2$$ > 0.998) by the model in (3). We repeat this exercise in all bands and with all NICs and obtain similar results. As a result, we claim that the IQ imbalance problem is the root source of non linear CSI phase errors.
+As shown in Figure 6, the averaged CSI phase measurements are very well approximated ($$r^2$$ > 0.998) by the model in (3). They repeat this exercise in all bands and with all NICs and obtain similar results. As a result, they claim that the IQ imbalance problem is the root source of non linear CSI phase errors.
 
 ### Characteristics of Non-Linear Phase Errors
 
 #### experiments
 
-In specific, we use combinations of different attenuators of 30/40/50/60 dB and transmitting powers of 15/10/5 dBm to achieve various signal strength. In addition, the transmitter and receiver hop synchronously among six different bands once 1,000 CSIs are collected and averaged on one band. For each configuration, we repeat the data collection for 200 times in a duration of two weeks and for each time we conduct the least-square regression analysis to the averaged CSI to derive all parameters in (3).
+In specific, they use combinations of different attenuators of 30/40/50/60 dB and transmitting powers of 15/10/5 dBm to achieve various signal strength. In addition, the transmitter and receiver hop synchronously among six different bands once 1,000 CSIs are collected and averaged on one band. For each configuration, they repeat the data collection for 200 times in a duration of two weeks and for each time we conduct the least-square regression analysis to the averaged CSI to derive all parameters in (3).
 
 ![有帮助的截图]({{ site.url }}/pictures/5.png)  ![有帮助的截图]({{ site.url }}/pictures/7.png)  
 
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fig.7
 
-We observe two characteristics from Fig.7:
+They observe two characteristics from Fig.7:
 
 1. The phase mismatch  $$\epsilon_i,_\theta$$ is sensitive to the frequency bands
 2. $$\zeta$$ is independent of frequency bands and the time-of-flight of signal.
 
 #### Remove Non-linear Phase Errors
 
-From the above study, we have one key observation that non-linear CSI phase errors caused by IQ imbalance are relatively stable over time and various RSSI conditions but sensitive to frequency bands.If the parameters of $$\epsilon_i,_A$$ , $$\epsilon_i,_\theta$$ and $$\zeta$$ are known, non-linear phase errors can be removed.
+From the above study, they have one key observation that non-linear CSI phase errors caused by IQ imbalance are relatively stable over time and various RSSI conditions but sensitive to frequency bands.If the parameters of $$\epsilon_i,_A$$ , $$\epsilon_i,_\theta$$ and $$\zeta$$ are known, non-linear phase errors can be removed.
 
 On one hand, if there is only one dominant path between a transmission pair, least-square regression analysis as described in Subsection III-B can be conducted but in real world multipath is inevitable.On the other hand, if a measured CSI phases can perfectly fit the model in (3), it means that either only one dominant path exists (e.g., in a strong LOS and weak multipath environment) or multipath is counteracted.
 
@@ -141,18 +141,18 @@ Thus ,when **determination $$r^2$$ is larger than a threshold**,we think this CS
 From intensive experiments mentioned above,they draw Fig.8 which plot the derived parameters related to linear CSI phase errors.We have the following four main observations: 1) the timing delay $$\delta_i$$introduced by PDD and SFO in (4)  is independent of frequency bands and RSSI conditions; 2) on a particular band and in a relatively stable RSSI environment, the timing delay $$\delta_i$$ follows a nonzeromean Gaussian distribution; 3) the variance of the Gaussian distribution of $$\delta_i$$ is large; 4) the phase offset error $$\beta_i$$ is analogous to the timing delay $$\delta_i$$ except the mean of its Gaussian distribution is zero.
 
 From previous analysis above,though the linear (or rotation) CSI phase errors introduced by PDD and
-SFO are Gaussian distributions, due to large variance, it is infeasible to get the mean by averaging a small number of CSIs measured within the channel coherence time.In order to eliminate phase rotation errors, we leverage the key insight that, given that the wireless channel is stable, the channel phase response for one specific frequency in passband should be the same even when it is measured from different bands.
+SFO are Gaussian distributions, due to large variance, it is infeasible to get the mean by averaging a small number of CSIs measured within the channel coherence time.In order to eliminate phase rotation errors, they leverage the key insight that, given that the wireless channel is stable, the channel phase response for one specific frequency in passband should be the same even when it is measured from different bands.
 
 ![有帮助的截图]({{ site.url }}/pictures/ill.png) 
 
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fig.9
 
-As illustrated in Figure 6, suppose there are M overlapping subcarriers between band $$i$$ and band $$j$$ both of which contain N non-zero indexed subcarriers exposed in the CSI measurements. The $$\theta_i,_\frac{N}{2}-_M+_s$$and  $$\theta_j,_-\frac{N}{2}+_s-_1$$,for s $$\varepsilon$$ [1,M],should be identical.Thus we have
+As illustrated in Figure 6, suppose there are M overlapping subcarriers between band $$i$$ and band $$j$$ both of which contain N non-zero indexed subcarriers exposed in the CSI measurements. The $$\theta_i,_\frac{N}{2}-_M+_s$$and  $$\theta_j,_-\frac{N}{2}+_s-_1$$,for s $$\varepsilon$$ [1,M],should be identical.Thus they have
 
 ![有帮助的截图]({{ site.url }}/pictures/equal.png) (4)
 
 
-Given that $$\phi_i,_\frac{N}{2}-_M+_s$$ and $$\phi_j,_-\frac{N}{2}+_s-_1$$ are averaged CSI phases and the non-linear phase errors $$\varphi_i,_\frac{N}{2}-_M+_s$$ and $$\varphi_j,_-\frac{N}{2}+_s-_1$$ can be estimated, there are only 4 unknown parameters,i.e., $$\delta_i$$, $$\beta_i$$, $$\delta_j$$ , and $$\beta_j$$ for M equations.For overdetermined equations (i.e., M is larger than 4 for commodity WiFi devices), we adopt the method of ordinary least squares (OLS) to find an approximate solution.
+Given that $$\phi_i,_\frac{N}{2}-_M+_s$$ and $$\phi_j,_-\frac{N}{2}+_s-_1$$ are averaged CSI phases and the non-linear phase errors $$\varphi_i,_\frac{N}{2}-_M+_s$$ and $$\varphi_j,_-\frac{N}{2}+_s-_1$$ can be estimated, there are only 4 unknown parameters,i.e., $$\delta_i$$, $$\beta_i$$, $$\delta_j$$ , and $$\beta_j$$ for M equations.For overdetermined equations (i.e., M is larger than 4 for commodity WiFi devices), they adopt the method of ordinary least squares (OLS) to find an approximate solution.
 
 [^1]: Z. Zhou, Z. Yang, C. Wu, W. Sun, and Y. Liu, “LiFi: Line-Of-Sight Identification with WiFi,” in Proceedings of IEEE INFOCOM, 2014.
 [^2]: Y. Xie, Z. Li, and M. Li, “Precise Power Delay Profiling with Commodity WiFi,” in Proceedings of ACM MobiCom, 2015.
