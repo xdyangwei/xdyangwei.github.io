@@ -28,7 +28,7 @@ As we said above,because of the hardware imperfection,CSI phase measurements inc
 
 From the above known error sources, the measured CSI phases are mainly distorted with various phase ration errors and/or phase offset errors.For a transmission pair, the phase measurement $$\phi$$(i, k) for sub-carrier k in band i can be expressed as     
 
-![有帮助的截图]({{ site.url }}/pictures/csi.png) (1)
+![有帮助的截图]({{ site.url }}/pictures/csi.png)&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (1)
 
 where k ranges from -28 to 28 ( index 0 is reserved for carrier frequency) in IEEE 802.11n for 20MHz band width, $$\theta$$ ( i, k) denotes the true phase, $$\delta_i$$ is the timing offset at the receiver, including time shift due to PDD and SFO, *f*$$_s$$ is the sub-carrier spacing between two adjacent sub-carriers (i.e. 312.5KHz), $$\beta_i$$ is the total phase offset, and Z is the additive white Gauss measurement noise.     
 
@@ -70,7 +70,7 @@ The default assumption that only notable linear phase error exists cannot hold a
 
 We augment the CSI phase error model as       
 
-![]({{ site.url }}/pictures/csi2.png)  (2)       
+![]({{ site.url }}/pictures/csi2.png)  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (2)       
 
 where $$\varphi_i,_k$$ denotes the non-linear error as a function of the sub-carrier index k in band i, with other parameters the same as in (1).
 
@@ -116,7 +116,7 @@ As shown in Figure 6, the averaged CSI phase measurements are very well approxim
 
 In specific, we use combinations of different attenuators of 30/40/50/60 dB and transmitting powers of 15/10/5 dBm to achieve various signal strength. In addition, the transmitter and receiver hop synchronously among six different bands once 1,000 CSIs are collected and averaged on one band. For each configuration, we repeat the data collection for 200 times in a duration of two weeks and for each time we conduct the least-square regression analysis to the averaged CSI to derive all parameters in (3).
 
-![有帮助的截图]({{ site.url }}/pictures/5.png)  ![有帮助的截图]({{ site.url }}/pictures/6.png)  
+![有帮助的截图]({{ site.url }}/pictures/5.png)  ![有帮助的截图]({{ site.url }}/pictures/7.png)  
 
 &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fig.7
 
@@ -134,6 +134,25 @@ On one hand, if there is only one dominant path between a transmission pair, lea
 Thus ,when **determination $$r^2$$ is larger than a threshold**,we think this CSI phases is **postive**.With Adequate postive CSI measurements ,we can easily **remove non-linear phases errors.**
 
 ## Remove Linear Phase Errors
+![有帮助的截图]({{ site.url }}/pictures/linear.png) 
+
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fig.8
+
+From intensive experiments mentioned above,they draw Fig.8 which plot the derived parameters related to linear CSI phase errors.We have the following four main observations: 1) the timing delay $$\delta_i$$introduced by PDD and SFO in (4)  is independent of frequency bands and RSSI conditions; 2) on a particular band and in a relatively stable RSSI environment, the timing delay $$\delta_i$$ follows a nonzeromean Gaussian distribution; 3) the variance of the Gaussian distribution of $$\delta_i$$ is large; 4) the phase offset error $$\beta_i$$ is analogous to the timing delay $$\delta_i$$ except the mean of its Gaussian distribution is zero.
+
+From previous analysis above,though the linear (or rotation) CSI phase errors introduced by PDD and
+SFO are Gaussian distributions, due to large variance, it is infeasible to get the mean by averaging a small number of CSIs measured within the channel coherence time.In order to eliminate phase rotation errors, we leverage the key insight that, given that the wireless channel is stable, the channel phase response for one specific frequency in passband should be the same even when it is measured from different bands.
+
+![有帮助的截图]({{ site.url }}/pictures/ill.png) 
+
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fig.9
+
+As illustrated in Figure 6, suppose there are M overlapping subcarriers between band $$i$$ and band $$j$$ both of which contain N non-zero indexed subcarriers exposed in the CSI measurements. The $$\theta_i,_\frac{N}{2}-_M+_s$$and  $$\theta_j,_-\frac{N}{2}+_s-_1$$,for s $$\varepsilon$$ [1,M],should be identical.Thus we have
+
+![有帮助的截图]({{ site.url }}/pictures/equal.png) (4)
+
+
+Given that $$\phi_i,_\frac{N}{2}-_M+_s$$ and $$\phi_j,_-\frac{N}{2}+_s-_1$$ are averaged CSI phases and the non-linear phase errors $$\varphi_i,_\frac{N}{2}-_M+_s$$ and $$\varphi_j,_-\frac{N}{2}+_s-_1$$ can be estimated, there are only 4 unknown parameters,i.e., $$\delta_i$$, $$\beta_i$$, $$\delta_j$$ , and $$\beta_j$$ for M equations.For overdetermined equations (i.e., M is larger than 4 for commodity WiFi devices), we adopt the method of ordinary least squares (OLS) to find an approximate solution.
 
 [^1]: Z. Zhou, Z. Yang, C. Wu, W. Sun, and Y. Liu, “LiFi: Line-Of-Sight Identification with WiFi,” in Proceedings of IEEE INFOCOM, 2014.
 [^2]: Y. Xie, Z. Li, and M. Li, “Precise Power Delay Profiling with Commodity WiFi,” in Proceedings of ACM MobiCom, 2015.
