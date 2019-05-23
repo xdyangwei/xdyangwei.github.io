@@ -51,3 +51,81 @@ IPPROTO_RM（PGM（Pragmatic General Multicast，实际通用组播协议）协�
     ```
 2. listen函数第一个参数为socket描述符，该socket是个未连接状态的socket，第二个参数backlog为挂起连接的最大长度，如果该值设置为SOMAXCONN，负责socket的底部服务提供商将设置该值为最大合理值，并没有该值的明确规定。
 3. 调用成功将返回0，否则返回SOCKET_ERROR，可以使用WSAGetLastError来获取错误代码。
+
+### accept函数
+1. accept允许socket上的连接，通常用于服务器端，函数声明如下：  
+    ```
+    SOCKET accept(
+        _in        SOCKET s,
+        _out       struct sockaddr* addr,
+        _in_out    int* addrlen
+    );
+    ```
+2. 第一个参数s为listen函数用到的socket，accept函数将创建连接，第二个参数为指向通信层连接实体地址的指针，客户端连接地址会被写入到这个地址中，addr的格式取决于bind函数内地址簇的类型。addrlen为addr的长度指针。
+3. 如果不发生错误，accept将返回一个新的SOCKET描述符，即新建连接的socket句柄。否则，将返回INVALID_SOCKET。传进去的addrlen应该是参数addr的长度，返回的addrlen是实际长度。
+
+### connect函数
+1. connect一般用于客户端请求服务端连接，函数声明如下：  
+    ```
+    int connect(
+        _in     SOCKET s,
+        _in     const struct sockaddr* name,
+        _in     int namelen
+    );
+    ```
+2. 第一个参数s为未连接的socket描述符，第二个参数name为待连接的地址，第三个参数namelen为name的长度。
+3. accept函数调用返回值0表示正确，否则，将返回SOCKET_ERROR。如果是阻塞式的socket连接，返回值代表了连接正常与失败，可以使用WSAGetLastError来获取错误代码。。
+
+### send、recv函数
+1. send和recv函数用于发送和接收数据，send函数用于在已连接的socket上发送数据，recv用于在已连接或绑定的socket上接收数据，二者函数声明如下：  
+    ```
+    int send(
+        _in      SOCKET s,
+        _in      const char* buf,
+        _in      int len,
+        _in      int flags
+    );
+    int recv(
+        _in      SOCKET s,
+        _in      char* buf,
+        _in      int len,
+        _in      int flags
+    );
+    ```
+2. 两个函数第一个参数s都是已连接的socket描述符，第二个参数buf是用于传输或写入数据的地址，第三个参数len为待发送或接收的数据长度，第四个参数flags为send(recv)函数的发送(接收)数据方式，MSDN给了以下几种发送方式：  
+1：MSG_DONTROUTE（Specifies that the data should not be subject to routing. A Windows Sockets service provider can choose to ignore this flag.）  
+2：MSG_OOB（Sends OOB data (stream-style socket such as SOCK_STREAM only）  
+3：0
+3. send的返回值标识已发送数据的长度，这个值可能比参数len小，这也意味着数据缓冲区没有全部发出去，要进行后续处理。返回SOCKET_ERROR标识send出错。  
+recv的返回值标识已接收数据的长度。如果连接已关闭，返回值将是0。返回SOCKET_ERROR标识recv出错，可以使用WSAGetLastError来获取错误代码。。
+
+### shutdown函数
+1. shutdown函数的作用是禁止在socket上收发数据，函数声明如下：
+    ```
+    int shutdown(
+        _in      SOCKET s,
+        _in      int how
+    );
+    ```
+2. 第一个参数s是socket描述符，指明需要禁止操作的socket，第二个参数how，描述了哪些操作将不被允许，how有以下几类取值：  
+1：SD_RECEIVE表明关闭接收通道，在该socket上不能再接收数据，如果当前接收缓存中仍有未取出数据或者以后再有数据到达，则TCP会向发送端发送RST包，将连接重置。  
+2：SD_SEND表明关闭发送通道，TCP会将发送缓存中的数据都发送完毕并在收到所有数据的ACK后向对端发送FIN包，表明本端没有更多数据发送。这个是一个优雅关闭过程。  
+3：SD_BOTH则表示同时关闭接收通道和发送通道。
+3. 调用成功则会返回0，不成功则会返回SOCKET_ERROR，shutdown并不关闭socket，只是禁止掉socket的recv或send行为。为保证数据收发完整性，在关闭socket之前应调用shutdown，可以使用WSAGetLastError来获取错误代码。。
+
+### getsockname函数和getpeername函数
+1. getsockname函数获取本地IP和PORT，getpeername函数获取对端IP和PORT，二者函数声明如下：
+    ```
+    int getsockname(
+        _in       SOCKET s,
+        _out      struct sockaddr* name,
+        _in_out   int* namelen
+    );
+    int getpeername(
+        _in       SOCKET s,
+        _out      struct sockaddr* name,
+        _in_out   int* namelen
+    );
+    ```
+2. 两个函数第一个参数s都是socket描述符，第二个参数是待存放本地或对端地址信息的sockaddr结构体指针，第三个参数为结构体长度指针。
+3. 调用成功返回0，出错则返回SOCKET_ERROR，可以使用WSAGetLastError来获取错误代码。
