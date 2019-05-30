@@ -24,7 +24,7 @@
     ```
 
 ### alloc::allocate和alloc::deallocate函数
-1. 这两个函数在<stl_alloc.h>头文件中，这个头文件中代码设计的原则如下：  
+1. 这两个函数在\<stl_alloc.h>头文件中，这个头文件中代码设计的原则如下：  
 （1）向system heap要求空间  
 （2）考虑多线程状态  
 （3）考虑内存不足时的应变措施  
